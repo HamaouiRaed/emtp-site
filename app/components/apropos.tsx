@@ -11,7 +11,7 @@ const aproposData = [
     tabTitle: "CONSTRUCTION D'UN BÂTIMENT",
     mainTitle: 'PLANIFIER ET STRUCTURER',
     desc: 'Préparer et organiser le chantier en accord avec les bonnes pratiques, de la connaissance des signes et le respect des normes de sécurité.',
-    bgImage: '/images/batiment.jfif',
+    bgImage: '/images/batiment.jpg',
   },
   {
     id: 'architecture',
@@ -20,7 +20,7 @@ const aproposData = [
     tabTitle: 'ARCHITECTURE ET DESIGN',
     mainTitle: 'CONCEPTION ET AMÉNAGEMENT',
     desc: 'Nous travaillons avec vous pour élaborer des immobiliers où il fait bon vivre, combinant esthétique moderne et fonctionnalité optimale.',
-    bgImage: '/images/architecture.jfif',
+    bgImage: '/images/architecture.jpg',
   },
   {
     id: 'design',
@@ -29,7 +29,7 @@ const aproposData = [
     tabTitle: 'DESIGN INTÉRIEUR',
     mainTitle: 'DÉCORATION INTÉRIEURE',
     desc: 'Nous vous accompagnons à aménager, organiser et décorer votre intérieur pour créer des ambiances qui vous ressemblent.',
-    bgImage: '/images/imi.jfif',
+    bgImage: '/images/imi.jpg',
   },
   {
     id: 'peinture',

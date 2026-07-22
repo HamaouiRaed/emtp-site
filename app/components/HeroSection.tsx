@@ -10,7 +10,7 @@ const slides = [
     title2: "Proximité de vous",
     title3: "A Côte d'Ivoire",
     desc: "EMTP est une entreprise qui a toutes les expériences dû à des innombrables projets réalisés (maisons clé en main, appartements, cités, etc.) en intervenant dans toutes les phases via les services de : construction, architecture & design, architecture interne et peinture.",
-    bg: "/images/architecture.jfif",
+    bg: "/images/architecture.jpg",
     btn1: "PLUS D'INFOS",
     btn2: "DEMANDE DE DEVIS"
   },
@@ -20,7 +20,7 @@ const slides = [
     title2: "engagés",
     title3: "Pour votre projet Immo Sur Mesure",
     desc: "Notre construction et notre détermination sous toutes deux exclusivement centrées sur vous, ce qui nous permet d'offrir un service spécifique et sur mesure.",
-    bg: "/images/chantier.jfif",
+    bg: "/images/chantier.jpg",
     btn1: "CONTACTEZ-NOUS",
     btn2: ""
   }

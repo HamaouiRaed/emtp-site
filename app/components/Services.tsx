@@ -46,9 +46,12 @@ export default function ServicesAccordion() {
     {/* Image */}
     <div className="relative w-full h-250px md:h-full bg-gray-200 rounded-sm overflow-hidden">
       <Image
-        src="/images/chantier.jfif"
+        src="/images/chantier.jpg"
         alt="Construction"
         fill
+        sizes="(max-width: 768px) 100vw, 
+           (max-width: 1200px) 50vw, 
+           600px"
         className="object-cover"
         priority
       />
