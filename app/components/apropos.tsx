@@ -87,6 +87,7 @@ export default function PagePrincipale() {
                 src={active.bgImage}
                 alt={active.tabTitle}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                 className="object-cover"
                 priority
               />
