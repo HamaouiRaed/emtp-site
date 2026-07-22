@@ -42,13 +42,13 @@ export default function HeroSection() {
       />
       
       {/* 2. Calque (Overlay) bleu pour conserver l'identité EMTP */}
-      <div className="absolute inset-0 bg-[#0B2545] opacity-80 z-[1]" />
+      <div className="absolute inset-0 bg-[#0B2545] opacity-80 z-1" />
 
       {/* 3. Slides */}
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-[2] ${
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-2 ${
             index === current ? 'opacity-100' : 'opacity-0'
           }`}
         >
@@ -95,14 +95,14 @@ export default function HeroSection() {
       {/* 4. Boutons de navigation */}
       <button 
         onClick={prevSlide}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-[3] w-12 h-16 bg-white flex items-center justify-center text-gray-600 hover:text-[#0B2545] shadow-md transition-all"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-3 w-12 h-16 bg-white flex items-center justify-center text-gray-600 hover:text-[#0B2545] shadow-md transition-all"
       >
         <FaChevronLeft size={16} />
       </button>
 
       <button 
         onClick={nextSlide}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-[3] w-12 h-16 bg-white flex items-center justify-center text-gray-600 hover:text-[#0B2545] shadow-md transition-all"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-3 w-12 h-16 bg-white flex items-center justify-center text-gray-600 hover:text-[#0B2545] shadow-md transition-all"
       >
         <FaChevronRight size={16} />
       </button>
