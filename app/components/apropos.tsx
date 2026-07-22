@@ -81,7 +81,7 @@ export default function PagePrincipale() {
 
           {/* Active Tab Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-           <div className="relative w-full h-[420px] rounded-sm overflow-hidden shadow-sm">
+           <div className="relative w-full h-420px rounded-sm overflow-hidden shadow-sm">
   <Image
     src={active.bgImage}
     alt={active.tabTitle}
