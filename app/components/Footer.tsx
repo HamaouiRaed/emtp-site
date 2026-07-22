@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#0B2545] text-white font-sans pt-16 pb-8 border-t border-white/10">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-        
+
         {/* Colonne 1: A propos & Brand */}
         <div>
           <h3 className="text-[#F5A623] text-xl font-black tracking-wider mb-4">EMTP</h3>
@@ -36,24 +36,17 @@ export default function Footer() {
           <ul className="space-y-3 text-sm text-gray-400 font-light">
             <li className="flex items-center gap-3">
               <FaMapMarkerAlt className="text-[#F5A623]" />
-              <span>Tunisie / Côte d'Ivoire</span>
+              <span>Cocody - Angre 8ème Tranche, Abidjan, Côte d’Ivoire</span>
             </li>
             <li className="flex items-center gap-3">
               <FaPhoneAlt className="text-[#F5A623]" />
-              <a href="tel:+21656556844" className="hover:text-white transition-colors">+216 56 556 844</a>
+              <a href="tel:+2250720287979" className="hover:text-white transition-colors">+225 07 20 28 79 79</a>
             </li>
             <li className="flex items-center gap-3">
               <FaEnvelope className="text-[#F5A623]" />
               <a href="mailto:contact@emtp-construction.com" className="hover:text-white transition-colors">contact@emtp-construction.com</a>
             </li>
           </ul>
-          
-          {/* Social Icons */}
-          <div className="flex gap-4 mt-6">
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#F5A623] hover:text-[#0B2545] transition-all">
-              <FaFacebookF size={14} />
-            </a>
-          </div>
         </div>
 
       </div>

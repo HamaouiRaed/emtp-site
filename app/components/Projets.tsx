@@ -87,7 +87,7 @@ export default function Projets() {
                   className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                   style={{ backgroundImage: `url('${img}')` }}
                 />
-                <div className="absolute inset-x-0 bottom-0 h-[4px] bg-[#F5A623] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                <div className="absolute inset-x-0 bottom-0 h-1 bg-[#F5A623] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               </div>
             ))}
           </div>

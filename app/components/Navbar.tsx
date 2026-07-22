@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { FaPhoneAlt, FaEnvelope, FaFacebookF, FaBars, FaTimes } from 'react-icons/fa'
 
 export default function Navbar() {
@@ -16,7 +17,7 @@ export default function Navbar() {
             <FaEnvelope /> <span className="hidden md:inline">contact@emtp-construction.com</span>
           </a>
           <a href="tel:+21656556844" className="flex items-center gap-2 hover:text-[#F5A623]">
-            <FaPhoneAlt /> <span className="hidden md:inline">+216 56 556 844</span>
+            <FaPhoneAlt /> <span className="hidden md:inline">+225 07 20 28 79 79</span>
           </a>
         </div>
         <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-[#F5A623]">
@@ -27,7 +28,7 @@ export default function Navbar() {
       {/* 2. Navbar Principale */}
       <div className="w-full bg-white h-20 shadow-sm relative border-b border-gray-100">
         <div className="max-w-7xl mx-auto h-full px-4 md:px-8 flex justify-between items-center relative">
-          
+
           {/* Menu Mobile Hamburger */}
           <button className="md:hidden text-[#0B2545] p-2" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
@@ -42,10 +43,17 @@ export default function Navbar() {
           </nav>
 
           {/* Logo Central */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 h-[70px] md:h-[90px] w-32 md:w-48 bg-[#F5A623] flex items-center justify-center text-white shadow-md z-30" style={{ clipPath: 'polygon(0 0, 100% 0, 85% 100%, 15% 100%)' }}>
-            <Link href="/" className="font-black text-lg md:text-2xl tracking-tighter text-center leading-none pt-2">
-              EMTP
-              <span className="hidden md:block text-[6px] tracking-[0.15em] font-light opacity-90 mt-1">ENTREPRISE MAHBOUBINE</span>
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 h-17.5 md:h-22.5 w-32 md:w-48 bg-[#F5A623] flex items-center justify-center text-white shadow-md z-30" style={{ clipPath: 'polygon(0 0, 100% 0, 85% 100%, 15% 100%)' }}>
+            <Link href="/" className="flex flex-col items-center justify-center">
+              <Image
+                src="/logos/EMTP-blanc.png"
+                alt="EMTP Logo"
+                width={120}
+                height={60}
+                priority
+                className="h-auto w-auto max-h-12 md:max-h-16"
+              />
+
             </Link>
           </div>
 

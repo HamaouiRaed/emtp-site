@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
 const servicesData = [
   {
@@ -39,42 +40,49 @@ export default function ServicesAccordion() {
   const [openId, setOpenId] = useState<string | null>('renovation') // الخدمة المفتوحة افتراضياً
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
-        
-        {}
-        <div className="w-full h-[500px] bg-gray-200 rounded-sm overflow-hidden">
-            <img src="/images/chantier.jfif" alt="Construction" className="w-full h-full object-cover" />
-        </div>
+<section className="py-20 bg-white">
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
 
-        {}
-        <div className="flex flex-col">
-          <h2 className="text-4xl font-black text-[#0B2545] mb-8">NOS SERVICES</h2>
-          
-          <div className="flex flex-col gap-2">
-            {servicesData.map((service) => (
-              <div key={service.id} className="border-b border-gray-100">
-                <button
-                  onClick={() => setOpenId(openId === service.id ? null : service.id)}
-                  className={`w-full flex justify-between items-center py-4 px-4 font-bold uppercase transition-colors ${
-                    openId === service.id ? 'bg-[#F5A623] text-white' : 'bg-gray-50 text-[#0B2545] hover:bg-gray-100'
-                  }`}
-                >
-                  {service.title}
-                  <span>{openId === service.id ? '-' : '+'}</span>
-                </button>
-                
-                {}
-                {openId === service.id && (
-                  <div className="p-6 bg-white border border-gray-100 text-gray-600 leading-relaxed text-sm animate-in fade-in slide-in-from-top-2">
-                    {service.desc}
-                  </div>
-                )}
+    {/* Image */}
+    <div className="relative w-full h-[250px] md:h-full bg-gray-200 rounded-sm overflow-hidden">
+      <Image
+        src="/images/chantier.jfif"
+        alt="Construction"
+        fill
+        className="object-cover"
+        priority
+      />
+    </div>
+
+    {/* Accordion */}
+    <div className="flex flex-col">
+      <h2 className="text-4xl font-black text-[#0B2545] mb-8">NOS SERVICES</h2>
+
+      <div className="flex flex-col gap-2">
+        {servicesData.map((service) => (
+          <div key={service.id} className="border-b border-gray-100">
+            <button
+              onClick={() => setOpenId(openId === service.id ? null : service.id)}
+              className={`w-full flex justify-between items-center py-4 px-4 font-bold uppercase transition-colors ${
+                openId === service.id
+                  ? 'bg-[#F5A623] text-white'
+                  : 'bg-gray-50 text-[#0B2545] hover:bg-gray-100'
+              }`}
+            >
+              {service.title}
+              <span>{openId === service.id ? '-' : '+'}</span>
+            </button>
+
+            {openId === service.id && (
+              <div className="p-6 bg-white border border-gray-100 text-gray-600 leading-relaxed text-sm animate-in fade-in slide-in-from-top-2">
+                {service.desc}
               </div>
-            ))}
+            )}
           </div>
-        </div>
+        ))}
       </div>
-    </section>
+    </div>
+  </div>
+</section>
   )
 }
