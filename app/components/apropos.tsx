@@ -39,7 +39,7 @@ const aproposData = [
     mainTitle: 'DÉCORATION MURALE',
     desc: 'Nous mettons l’accent sur la qualité des matériaux, produits et peintures pour sublimer vos espaces.',
     bgImage: '/images/5.jpg',
-  },
+  }
 ]
 
 export default function PagePrincipale() {
@@ -57,13 +57,12 @@ export default function PagePrincipale() {
               <button
                 key={service.id}
                 onClick={() => setActiveTab(service.id)}
-                className={`flex-1 min-w-220px flex items-center justify-center gap-4 py-6 text-[11px] font-black tracking-wider uppercase border-b-4 transition-all ${
+                className={`flex-1 min-w-[220px] flex items-center justify-center gap-4 py-6 text-[11px] font-black tracking-wider uppercase border-b-4 transition-all ${
                   activeTab === service.id
                     ? 'border-[#F5A623] text-[#0B2545] bg-gray-50/80 shadow-sm'
                     : 'border-transparent text-gray-400 hover:text-[#0B2545]'
                 }`}
               >
-                {/* Icon or Emoji */}
                 {service.icon ? (
                   <Image
                     src={service.icon}
@@ -82,7 +81,7 @@ export default function PagePrincipale() {
 
           {/* Active Tab Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="relative w-full h-420px rounded-sm overflow-hidden shadow-sm">
+            <div className="relative w-full h-[420px] rounded-sm overflow-hidden shadow-sm">
               <Image
                 src={active.bgImage}
                 alt={active.tabTitle}
