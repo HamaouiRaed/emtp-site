@@ -44,7 +44,7 @@ export default function ServicesAccordion() {
   <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
 
     {/* Image */}
-    <div className="relative w-full h-[250px] md:h-full bg-gray-200 rounded-sm overflow-hidden">
+    <div className="relative w-full h-250px md:h-full bg-gray-200 rounded-sm overflow-hidden">
       <Image
         src="/images/chantier.jfif"
         alt="Construction"

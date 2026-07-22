@@ -176,7 +176,7 @@ export default function DemandeDevis() {
       <div className="min-h-screen bg-white font-sans flex flex-col">
         <Navbar />
 
-        <main className="flex-grow py-16 px-4 md:px-10 lg:px-20 bg-white">
+        <main className="grow py-16 px-4 md:px-10 lg:px-20 bg-white">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-extrabold text-[#0B2545] uppercase mb-3 tracking-tight">
               DEMANDE DE DEVIS
