@@ -81,15 +81,16 @@ export default function PagePrincipale() {
 
           {/* Active Tab Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="relative w-full h-420px rounded-sm overflow-hidden shadow-sm">
-              <Image
-                src={active.bgImage}
-                alt={active.tabTitle}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                className="object-cover"
-                priority
-              />
+           <div className="relative w-full h-[420px] rounded-sm overflow-hidden shadow-sm">
+  <Image
+    src={active.bgImage}
+    alt={active.tabTitle}
+    fill
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+    className="object-cover"
+    priority
+  />
+
               <div className="absolute bottom-0 left-0 w-56 h-56 bg-white rounded-tr-[120px] flex flex-col justify-end p-8 border-t border-r border-gray-50">
                 <span className="text-7xl font-black text-gray-100 block leading-none mb-2 select-none">
                   {active.num}
