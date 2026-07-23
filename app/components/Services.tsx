@@ -40,20 +40,19 @@ export default function ServicesAccordion() {
   const [openId, setOpenId] = useState<string | null>('renovation') // الخدمة المفتوحة افتراضياً
 
   return (
-<section className="py-20 bg-white">
+<section className="min-h-screen flex flex-col justify-center py-20 bg-white">
   <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
 
     {/* Image */}
-    <div className="relative w-full h-250px md:h-full bg-gray-200 rounded-sm overflow-hidden">
+    <div className="relative w-full h-70 md:h-full bg-gray-200 rounded-sm overflow-hidden">
       <Image
         src="/images/chantier.jpg"
         alt="Construction"
         fill
-        sizes="(max-width: 768px) 100vw, 
-           (max-width: 1200px) 50vw, 
+        sizes="(max-width: 768px) 100vw,
+           (max-width: 1200px) 50vw,
            600px"
         className="object-cover"
-        priority
       />
     </div>
 

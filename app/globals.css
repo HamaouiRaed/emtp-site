@@ -40,3 +40,26 @@ h1,
   font-family: var(--font-heading), sans-serif;
   font-weight: 600;
 }
+
+.emtp-phone-input {
+  --PhoneInput-color--focus: #F5A623;
+  --PhoneInputCountryFlag-borderColor: #d1d5db;
+}
+
+.emtp-phone-input .PhoneInputInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  padding-left: 0.75rem;
+}
+
+.emtp-phone-input .PhoneInputCountry {
+  margin-right: 0.5rem;
+  padding-right: 0.75rem;
+  border-right: 1px solid #d1d5db;
+}
+
+.emtp-phone-input .PhoneInputCountrySelect {
+  cursor: pointer;
+}

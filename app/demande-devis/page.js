@@ -1,19 +1,19 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react';
-import { send } from '@emailjs/browser';
 import Head from 'next/head';
+import Link from 'next/link';
+import RPNInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export default function DemandeDevis() {
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState('');
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
-  const [showToast, setShowToast] = useState(false);
   const [formValues, setFormValues] = useState({
     fullName: '',
     company: '',
@@ -25,15 +25,12 @@ export default function DemandeDevis() {
     details: '',
   });
 
-  useEffect(() => {
-    if (!uploadMessage) {
-      setShowToast(false);
-      return;
-    }
+  const showToast = Boolean(uploadMessage);
 
-    setShowToast(true);
+  useEffect(() => {
+    if (!uploadMessage) return;
+
     const timer = window.setTimeout(() => {
-      setShowToast(false);
       setUploadMessage('');
     }, 4000);
 
@@ -43,13 +40,12 @@ export default function DemandeDevis() {
   const handleFile = (file) => {
     if (!file) return;
 
-    if (file.size > 50 * 1024 * 1024) {
-      setUploadMessage('Le fichier dépasse la limite de 50 Mo.');
+    if (file.size > 18 * 1024 * 1024) {
+      setUploadMessage('Le fichier dépasse la limite de 18 Mo.');
       return;
     }
 
     setSelectedFile(file);
-    setFileUrl('');
     setUploadMessage(`Fichier sélectionné : ${file.name}`);
   };
 
@@ -104,49 +100,29 @@ export default function DemandeDevis() {
     setUploadMessage('');
 
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+      const requestFormData = new FormData();
+      requestFormData.append('file', selectedFile);
+      requestFormData.append('fullName', formValues.fullName);
+      requestFormData.append('company', formValues.company);
+      requestFormData.append('role', formValues.role);
+      requestFormData.append('email', formValues.email);
+      requestFormData.append('phone', formValues.phone);
+      requestFormData.append('mission', formValues.mission);
+      requestFormData.append('details', formValues.details);
 
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error('La configuration EmailJS est manquante. Vérifiez vos variables d’environnement.');
-      }
-
-
-      const uploadFormData = new FormData();
-      uploadFormData.append('file', selectedFile);
-
-      const uploadResponse = await fetch('/api/send-devis', {
+      const response = await fetch('/api/send-devis', {
         method: 'POST',
-        body: uploadFormData,
+        body: requestFormData,
       });
 
-      const uploadResult = await uploadResponse.json();
+      const result = await response.json();
 
-      if (!uploadResponse.ok) {
-        throw new Error(uploadResult.error || 'Échec de l’envoi du fichier.');
+      if (!response.ok) {
+        throw new Error(result.error || 'Échec de l’envoi de la demande.');
       }
-
-      const resolvedFileUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}${uploadResult.url}`;
-      setFileUrl(resolvedFileUrl);
-
-      const templateParams = {
-        from_name: formValues.fullName,
-        company: formValues.company,
-        role: formValues.role,
-        email: formValues.email,
-        phone: formValues.phone,
-        mission: formValues.mission,
-        details: formValues.details,
-        file_name: selectedFile.name,
-        file_url: resolvedFileUrl,
-      };
-
-      await send(serviceId, templateId, templateParams, { publicKey });
 
       setUploadMessage(`Votre demande a bien été envoyée avec la pièce jointe ${selectedFile.name}.`);
       setSelectedFile(null);
-      setFileUrl('');
       setFormValues({
         fullName: '',
         company: '',
@@ -183,7 +159,7 @@ export default function DemandeDevis() {
             </h1>
 
             <div className="text-sm mb-16 flex items-center gap-2 text-gray-600 border-b border-gray-100 pb-4">
-              <a href="/" className="hover:text-[#0B2545]">ACCUEIL</a>
+              <Link href="/" className="hover:text-[#0B2545]">ACCUEIL</Link>
               <span>|</span>
               <span className="text-[#F5A623] font-medium uppercase">Demande de devis</span>
             </div>
@@ -202,12 +178,15 @@ export default function DemandeDevis() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <PhoneInput value={formValues.phone} onChange={handleChange} />
+                <PhoneField
+                  value={formValues.phone}
+                  onChange={(value) => setFormValues((prev) => ({ ...prev, phone: value || '' }))}
+                />
                 <InputField label="Mission *" name="mission" value={formValues.mission} onChange={handleChange} />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-[#0B2545] mb-3">Veuillez nous envoyer les données d'entrée :</label>
+                <label htmlFor="attachment" className="block text-sm font-bold text-[#0B2545] mb-3">Veuillez nous envoyer les données d&apos;entrée :</label>
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   onDragOver={(event) => {
@@ -222,6 +201,7 @@ export default function DemandeDevis() {
                 >
                   <input
                     ref={fileInputRef}
+                    id="attachment"
                     type="file"
                     name="attachment"
                     className="hidden"
@@ -231,7 +211,7 @@ export default function DemandeDevis() {
                   <p className="text-sm text-gray-600">
                     {selectedFile
                       ? `Fichier sélectionné : ${selectedFile.name}`
-                      : 'Click or drag a file to this area to upload. (Max 50 MB)'}
+                      : 'Click or drag a file to this area to upload. (Max 18 MB)'}
                   </p>
                 </div>
 
@@ -276,8 +256,9 @@ export default function DemandeDevis() {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-[#0B2545] uppercase mb-3">La demande de devis concerne : *</label>
+                <label htmlFor="details" className="block text-sm font-bold text-[#0B2545] uppercase mb-3">La demande de devis concerne : *</label>
                 <textarea
+                  id="details"
                   name="details"
                   value={formValues.details}
                   onChange={handleChange}
@@ -308,8 +289,9 @@ export default function DemandeDevis() {
 function InputField({ label, type = 'text', name, value, onChange }) {
   return (
     <div>
-      <label className="block text-sm font-bold text-[#0B2545] mb-3">{label}</label>
+      <label htmlFor={name} className="block text-sm font-bold text-[#0B2545] mb-3">{label}</label>
       <input
+        id={name}
         type={type}
         name={name}
         value={value}
@@ -321,22 +303,27 @@ function InputField({ label, type = 'text', name, value, onChange }) {
   );
 }
 
-function PhoneInput({ value, onChange }) {
+function PhoneField({ value, onChange }) {
   return (
     <div>
-      <label className="block text-sm font-bold text-[#0B2545] mb-3">Votre numéro de téléphone *</label>
-      <div className="flex items-center border border-gray-300 rounded-sm focus-within:ring-2 focus-within:ring-[#F5A623]">
-        <img src="https://flagicons.lipis.dev/flags/4x3/tn.svg" alt="Tunisia" className="w-6 h-6 ml-3" />
-        <span className="text-gray-500 px-3 border-r border-gray-300">+216</span>
-        <input
-          type="tel"
-          name="phone"
-          value={value}
-          onChange={onChange}
-          required
-          className="w-full p-3 outline-none bg-transparent"
-        />
-      </div>
+      <label htmlFor="phone" className="block text-sm font-bold text-[#0B2545] mb-3">Votre numéro de téléphone *</label>
+      <RPNInput
+        international
+        defaultCountry="CI"
+        value={value}
+        onChange={onChange}
+        numberInputProps={{
+          id: 'phone',
+          name: 'phone',
+          placeholder: '07 20 28 79 79',
+          pattern: '[0-9()+\\-\\s]{6,}',
+          title: 'Veuillez saisir un numéro de téléphone valide.',
+          className: 'w-full p-3 outline-none bg-transparent',
+          required: true,
+        }}
+        countrySelectProps={{ name: 'phoneCountry', 'aria-label': 'Indicatif du pays' }}
+        className="emtp-phone-input flex items-center border border-gray-300 rounded-sm px-3 focus-within:ring-2 focus-within:ring-[#F5A623]"
+      />
     </div>
   );
 }

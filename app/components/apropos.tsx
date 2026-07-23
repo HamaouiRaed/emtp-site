@@ -6,8 +6,7 @@ import Image from "next/image";
 const aproposData = [
   {
     id: 'construction',
-    num: '01',
-    icon: '/icons/construct-bat.png',  
+    icon: '/icons/construct-bat.png',
     tabTitle: "CONSTRUCTION D'UN BÂTIMENT",
     mainTitle: 'PLANIFIER ET STRUCTURER',
     desc: 'Préparer et organiser le chantier en accord avec les bonnes pratiques, de la connaissance des signes et le respect des normes de sécurité.',
@@ -15,8 +14,7 @@ const aproposData = [
   },
   {
     id: 'architecture',
-    icon: '/icons/architecture.png', 
-    num: '02',
+    icon: '/icons/architecture.png',
     tabTitle: 'ARCHITECTURE ET DESIGN',
     mainTitle: 'CONCEPTION ET AMÉNAGEMENT',
     desc: 'Nous travaillons avec vous pour élaborer des immobiliers où il fait bon vivre, combinant esthétique moderne et fonctionnalité optimale.',
@@ -24,8 +22,7 @@ const aproposData = [
   },
   {
     id: 'design',
-    icon: '/icons/interior-design.png', 
-    num: '03',
+    icon: '/icons/interior-design.png',
     tabTitle: 'DESIGN INTÉRIEUR',
     mainTitle: 'DÉCORATION INTÉRIEURE',
     desc: 'Nous vous accompagnons à aménager, organiser et décorer votre intérieur pour créer des ambiances qui vous ressemblent.',
@@ -33,8 +30,7 @@ const aproposData = [
   },
   {
     id: 'peinture',
-    icon: '/icons/peinture.png', 
-    num: '04',
+    icon: '/icons/peinture.png',
     tabTitle: 'PEINTURE',
     mainTitle: 'DÉCORATION MURALE',
     desc: 'Nous mettons l’accent sur la qualité des matériaux, produits et peintures pour sublimer vos espaces.',
@@ -48,54 +44,71 @@ export default function PagePrincipale() {
   const active = aproposData.find((service) => service.id === activeTab) || aproposData[0]
 
   return (
-    <main className="bg-white">
-      <section className="py-20 font-sans text-[#0B2545] scroll-mt-24">
-        <div className="max-w-7xl mx-auto px-6">
+    <section className="min-h-screen flex flex-col justify-center bg-white py-20 font-sans text-[#0B2545] scroll-mt-24">
+      <div className="max-w-7xl mx-auto px-6 w-full">
           {/* Tabs */}
-          <div className="flex border-b border-gray-100 overflow-x-auto scrollbar-none mb-16">
-            {aproposData.map((service) => (
-              <button
-                key={service.id}
-                onClick={() => setActiveTab(service.id)}
-                className={`flex-1 min-w-220px] flex items-center justify-center gap-4 py-6 text-[11px] font-black tracking-wider uppercase border-b-4 transition-all ${
-                  activeTab === service.id
-                    ? 'border-[#F5A623] text-[#0B2545] bg-gray-50/80 shadow-sm'
-                    : 'border-transparent text-gray-400 hover:text-[#0B2545]'
-                }`}
-              >
-                {service.icon ? (
-                  <Image
-                    src={service.icon}
-                    alt={`${service.tabTitle} icon`}
-                    width={24}
-                    height={24}
-                    className="object-contain"
-                  />
-                ) : (
-                  <span className="text-xl">{service.icon}</span>
-                )}
-                <span className="text-left leading-tight">{service.tabTitle}</span>
-              </button>
-            ))}
+          <div className="relative mb-16">
+            <div className="flex border-b border-gray-100 overflow-x-auto scrollbar-none">
+              {aproposData.map((service) => (
+                <button
+                  key={service.id}
+                  onClick={() => setActiveTab(service.id)}
+                  className={`flex-1 min-w-65 flex items-center justify-start gap-5 pl-8 pr-4 py-10 text-base font-black tracking-wider uppercase text-[#0B2545] transition-all ${
+                    activeTab === service.id ? 'bg-gray-50/80 shadow-sm' : 'hover:bg-gray-50/50'
+                  }`}
+                >
+                  {service.icon ? (
+                    <Image
+                      src={service.icon}
+                      alt={`${service.tabTitle} icon`}
+                      width={84}
+                      height={84}
+                      className="object-contain shrink-0"
+                    />
+                  ) : (
+                    <span className="text-xl">{service.icon}</span>
+                  )}
+                  <span
+                    className="text-left leading-tight -translate-y-4 text-[#0B2545]"
+                    style={{ WebkitTextStroke: '0.5px #0B2545' }}
+                  >
+                    {service.tabTitle}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <div
+              className="absolute left-0 top-full h-1 bg-[#F5A623] transition-transform duration-300 ease-in-out"
+              style={{
+                width: `${100 / aproposData.length}%`,
+                transform: `translateX(${aproposData.findIndex((service) => service.id === activeTab) * 100}%)`,
+              }}
+            />
           </div>
 
           {/* Active Tab Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-           <div className="relative w-full h-420px rounded-sm overflow-hidden shadow-sm">
+           <div className="relative w-full h-105 rounded-sm overflow-hidden shadow-sm">
   <Image
     src={active.bgImage}
     alt={active.tabTitle}
     fill
     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
     className="object-cover"
-    priority
   />
 
-              <div className="absolute bottom-0 left-0 w-56 h-56 bg-white rounded-tr-[120px] flex flex-col justify-end p-8 border-t border-r border-gray-50">
-                <span className="text-7xl font-black text-gray-100 block leading-none mb-2 select-none">
-                  {active.num}
-                </span>
-                <span className="text-[10px] font-black tracking-widest uppercase text-[#0B2545]">
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-tr-[120px] flex flex-col justify-between p-8 border-t border-r border-gray-50">
+                <Image
+                  src={active.icon}
+                  alt=""
+                  width={88}
+                  height={88}
+                  className="object-contain"
+                />
+                <span
+                  className="text-lg font-black tracking-widest uppercase text-[#0B2545] leading-snug"
+                  style={{ WebkitTextStroke: '0.75px #0B2545' }}
+                >
                   {active.tabTitle}
                 </span>
               </div>
@@ -117,6 +130,5 @@ export default function PagePrincipale() {
           </div>
         </div>
       </section>
-    </main>
   )
 }

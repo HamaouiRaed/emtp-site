@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 const slides = [
@@ -33,22 +34,26 @@ export default function HeroSection() {
   const prevSlide = () => setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
 
   return (
-    <div className="relative w-full h-[85vh] overflow-hidden font-sans group">
+    <div className="relative w-full min-h-screen overflow-hidden font-sans group">
       
       {/* 1. Image de fond globale */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/emtp.jfif')" }} 
+      <Image
+        src="/images/emtp.jfif"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
       />
       
       {/* 2. Calque (Overlay) bleu pour conserver l'identité EMTP */}
-      <div className="absolute inset-0 bg-[#0B2545] opacity-80 z-1" />
+      <div className="absolute inset-0 bg-[#0B2545] opacity-80 z-10" />
 
       {/* 3. Slides */}
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-2 ${
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out z-20 ${
             index === current ? 'opacity-100' : 'opacity-0'
           }`}
         >
@@ -93,16 +98,18 @@ export default function HeroSection() {
       ))}
 
       {/* 4. Boutons de navigation */}
-      <button 
+      <button
         onClick={prevSlide}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-3 w-12 h-16 bg-white flex items-center justify-center text-gray-600 hover:text-[#0B2545] shadow-md transition-all"
+        aria-label="Diapositive précédente"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-30 w-12 h-16 bg-white flex items-center justify-center text-gray-600 hover:text-[#0B2545] shadow-md transition-all"
       >
         <FaChevronLeft size={16} />
       </button>
 
-      <button 
+      <button
         onClick={nextSlide}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-3 w-12 h-16 bg-white flex items-center justify-center text-gray-600 hover:text-[#0B2545] shadow-md transition-all"
+        aria-label="Diapositive suivante"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-30 w-12 h-16 bg-white flex items-center justify-center text-gray-600 hover:text-[#0B2545] shadow-md transition-all"
       >
         <FaChevronRight size={16} />
       </button>

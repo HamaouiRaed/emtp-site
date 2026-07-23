@@ -1,20 +1,20 @@
 'use client'
 
 import Link from 'next/link'
-import { FaFacebookF, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
     <footer className="bg-[#0B2545] text-white font-sans pt-16 pb-8 border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
 
         {/* Colonne 1: A propos & Brand */}
         <div>
           <h3 className="text-[#F5A623] text-xl font-black tracking-wider mb-4">EMTP</h3>
           <p className="text-gray-400 text-sm font-light leading-relaxed max-w-sm">
-            Entreprise spécialisée dans les travaux publics, la construction, l'architecture et le design intérieur. Nous concrétisons vos projets avec expertise et rigueur.
+            Entreprise spécialisée dans les travaux publics, la construction, l&apos;architecture et le design intérieur. Nous concrétisons vos projets avec expertise et rigueur.
           </p>
         </div>
 
@@ -23,7 +23,7 @@ export default function Footer() {
           <h4 className="text-white text-sm font-bold tracking-widest uppercase mb-4">Liens Utiles</h4>
           <ul className="space-y-2.5 text-sm text-gray-400 font-light">
             {/* Utilisation des ancres # pour naviguer vers les sections */}
-            <li><Link href="/#a-propos" className="hover:text-[#F5A623] transition-colors">À Propos</Link></li>
+            <li><Link href="/#apropos" className="hover:text-[#F5A623] transition-colors">À Propos</Link></li>
             <li><Link href="/#services" className="hover:text-[#F5A623] transition-colors">Nos Services</Link></li>
             <li><Link href="/#projets" className="hover:text-[#F5A623] transition-colors">Nos Projets</Link></li>
             <li><Link href="/#contact" className="hover:text-[#F5A623] transition-colors">Contact</Link></li>
@@ -44,7 +44,7 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <FaEnvelope className="text-[#F5A623]" />
-              <a href="mailto:contact@emtp-construction.com" className="hover:text-white transition-colors">contact@emtp-construction.com</a>
+              <a href="mailto:contact@emtp-btp.com" className="hover:text-white transition-colors">contact@emtp-btp.com</a>
             </li>
           </ul>
         </div>
@@ -52,7 +52,7 @@ export default function Footer() {
       </div>
 
       {/* Bar bas de page */}
-      <div className="max-w-6xl mx-auto px-6 pt-8 border-t border-white/5 text-center text-xs text-gray-500 font-light">
+      <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-white/5 text-center text-xs text-gray-500 font-light">
         <p>&copy; {currentYear} EMTP. Tous droits réservés.</p>
       </div>
     </footer>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
  const projectsImages = [
   
@@ -36,6 +36,17 @@ export default function Projets() {
   const totalImages = projectsImages.length
   const visibleImages = 3
 
+  useEffect(() => {
+    if (!selectedImage) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedImage(null)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedImage])
+
   const nextSlide = () => {
     setStartIndex((prev) => (prev >= totalImages - visibleImages ? 0 : prev + 1))
   }
@@ -45,8 +56,8 @@ export default function Projets() {
   }
 
   return (
-    <section id="projets" className="py-24 bg-[#F7F9FA] overflow-hidden border-t border-gray-100 select-none">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="min-h-screen flex flex-col justify-center py-24 bg-[#F7F9FA] overflow-hidden border-t border-gray-100 select-none">
+      <div className="max-w-7xl mx-auto px-6 w-full">
         
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-stretch">
           
@@ -55,19 +66,21 @@ export default function Projets() {
             <div>
               <h3 className="text-xl font-bold leading-snug uppercase mb-4">NOS RÉALISATIONS</h3>
               <p className="text-xs text-gray-400 font-light leading-relaxed">
-                Découvrez nos projets en images. Cliquez sur n'importe quelle photo pour l'agrandir.
+                Découvrez nos projets en images. Cliquez sur n&apos;importe quelle photo pour l&apos;agrandir.
               </p>
             </div>
             
             <div className="flex gap-2.5 mt-10">
-              <button 
-                onClick={prevSlide} 
+              <button
+                onClick={prevSlide}
+                aria-label="Projet précédent"
                 className="w-10 h-10 border border-white/10 hover:bg-[#F5A623] hover:text-[#0B2545] flex items-center justify-center rounded-lg transition-all active:scale-95"
               >
                 ❮
               </button>
-              <button 
-                onClick={nextSlide} 
+              <button
+                onClick={nextSlide}
+                aria-label="Projet suivant"
                 className="w-10 h-10 border border-white/10 hover:bg-[#F5A623] hover:text-[#0B2545] flex items-center justify-center rounded-lg transition-all active:scale-95"
               >
                 ❯
@@ -94,15 +107,18 @@ export default function Projets() {
         </div>
       </div>
 
-      {}
       {selectedImage && (
-        <div 
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Aperçu du projet"
           className="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-5xl flex items-center justify-center">
-            <button 
+            <button
               onClick={() => setSelectedImage(null)}
+              aria-label="Fermer l'aperçu"
               className="absolute -top-12 right-0 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg"
             >
               ✕

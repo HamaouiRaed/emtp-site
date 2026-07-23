@@ -13,10 +13,10 @@ export default function Navbar() {
       {/* 1. Top Bar responsive */}
       <div className="w-full bg-[#0B2545] text-white text-[10px] md:text-[11px] font-medium py-2 px-4 md:px-8 flex justify-between items-center border-b border-white/10">
         <div className="flex items-center gap-4 md:gap-6">
-          <a href="mailto:contact@emtp-construction.com" className="flex items-center gap-2 hover:text-[#F5A623]">
-            <FaEnvelope /> <span className="hidden md:inline">contact@emtp-construction.com</span>
+          <a href="mailto:contact@emtp-btp.com" className="flex items-center gap-2 hover:text-[#F5A623]">
+            <FaEnvelope /> <span className="hidden md:inline">contact@emtp-btp.com</span>
           </a>
-          <a href="tel:+21656556844" className="flex items-center gap-2 hover:text-[#F5A623]">
+          <a href="tel:+2250720287979" className="flex items-center gap-2 hover:text-[#F5A623]">
             <FaPhoneAlt /> <span className="hidden md:inline">+225 07 20 28 79 79</span>
           </a>
         </div>
@@ -36,10 +36,10 @@ export default function Navbar() {
 
           {/* Liens Desktop */}
           <nav className="hidden md:flex items-center gap-8 text-[12px] font-black tracking-widest text-[#0B2545] uppercase">
-            <a href="/#apropos" className="hover:text-[#F5A623]">À PROPOS</a>
-            <a href="/#services" className="hover:text-[#F5A623]">SERVICES</a>
-            <a href="/#projets" className="hover:text-[#F5A623]">PROJETS</a>
-            <a href="/#contact" className="hover:text-[#F5A623]">CONTACT</a>
+            <Link href="/#apropos" className="hover:text-[#F5A623]">À PROPOS</Link>
+            <Link href="/#services" className="hover:text-[#F5A623]">SERVICES</Link>
+            <Link href="/#projets" className="hover:text-[#F5A623]">PROJETS</Link>
+            <Link href="/#contact" className="hover:text-[#F5A623]">CONTACT</Link>
           </nav>
 
           {/* Logo Central */}
@@ -59,10 +59,10 @@ export default function Navbar() {
 
           {/* Bouton Devis */}
           <div className="flex items-center ml-auto">
-            <a href="/loading-devis" className="border border-gray-300 px-3 md:px-6 py-2 md:py-3 text-[9px] md:text-[11px] font-black tracking-widest text-[#0B2545] uppercase hover:bg-[#0B2545] hover:text-white transition-all">
+            <Link href="/loading-devis" className="border border-gray-300 px-3 md:px-6 py-2 md:py-3 text-[9px] md:text-[11px] font-black tracking-widest text-[#0B2545] uppercase hover:bg-[#0B2545] hover:text-white transition-all">
               <span className="hidden md:inline">DEMANDE DE DEVIS</span>
               <span className="md:hidden">DEVIS</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -70,10 +70,10 @@ export default function Navbar() {
       {/* Menu Mobile Déroulant */}
       {isOpen && (
         <div className="md:hidden bg-white w-full border-b border-gray-100 p-6 flex flex-col gap-6 text-[#0B2545] font-black uppercase text-sm text-center shadow-xl">
-          <a href="/#apropos" onClick={() => setIsOpen(false)}>À PROPOS</a>
-          <a href="/#services" onClick={() => setIsOpen(false)}>SERVICES</a>
-          <a href="/#projets" onClick={() => setIsOpen(false)}>PROJETS</a>
-          <a href="/#contact" onClick={() => setIsOpen(false)}>CONTACT</a>
+          <Link href="/#apropos" onClick={() => setIsOpen(false)}>À PROPOS</Link>
+          <Link href="/#services" onClick={() => setIsOpen(false)}>SERVICES</Link>
+          <Link href="/#projets" onClick={() => setIsOpen(false)}>PROJETS</Link>
+          <Link href="/#contact" onClick={() => setIsOpen(false)}>CONTACT</Link>
         </div>
       )}
     </header>

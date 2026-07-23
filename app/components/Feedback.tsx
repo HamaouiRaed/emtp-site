@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
  const feedbacks = [
   {
@@ -31,9 +32,8 @@ export default function Feedback() {
   }
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      {/* خلفية مزخرفة بخطوط خفيفة (اختياري لمحاكاة التصميم) */}
-      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(#0B2545 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+    <section className="min-h-screen flex flex-col justify-center py-24 bg-white relative overflow-hidden">
+       <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(#0B2545 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         
@@ -42,12 +42,14 @@ export default function Feedback() {
           
           {/* صورة العميل وأيقونة الاقتباس */}
           <div className="relative shrink-0">
-            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gray-100">
+            <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gray-100">
               {feedbacks[currentIndex].image ? (
-                <img 
-                  src={feedbacks[currentIndex].image} 
-                  alt={feedbacks[currentIndex].name} 
-                  className="w-full h-full object-cover"
+                <Image
+                  src={feedbacks[currentIndex].image}
+                  alt={feedbacks[currentIndex].name}
+                  fill
+                  sizes="128px"
+                  className="object-cover"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400 text-3xl">👤</div>
@@ -71,8 +73,7 @@ export default function Feedback() {
 
         </div>
 
-        {/* المؤشرات (Dashes) في الأسفل */}
-        <div className="flex justify-center md:justify-end items-center gap-2 mt-8 pr-4">
+         <div className="flex justify-center md:justify-end items-center gap-2 mt-8 pr-4">
           {feedbacks.map((_, index) => (
             <button
               key={index}
@@ -90,14 +91,16 @@ export default function Feedback() {
       </div>
 
       { }
-      <button 
+      <button
         onClick={prevSlide}
+        aria-label="Témoignage précédent"
         className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 hover:text-[#F5A623] text-4xl transition-colors hidden md:block"
       >
         ❮
       </button>
-      <button 
+      <button
         onClick={nextSlide}
+        aria-label="Témoignage suivant"
         className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 hover:text-[#F5A623] text-4xl transition-colors hidden md:block"
       >
         ❯

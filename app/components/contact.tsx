@@ -1,38 +1,58 @@
 'use client'
 
-import { useState, useRef, type FormEvent } from 'react'
-import emailjs from '@emailjs/browser'
+import { useEffect, useState, useRef, type FormEvent } from 'react'
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa'
+
+type Toast = { type: 'success' | 'error'; message: string }
 
 export default function Contact() {
   const form = useRef<HTMLFormElement | null>(null)
   const [loading, setLoading] = useState(false)
+  const [toast, setToast] = useState<Toast | null>(null)
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (!toast) return
+
+    const timer = window.setTimeout(() => setToast(null), 4000)
+    return () => window.clearTimeout(timer)
+  }, [toast])
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!form.current) return
 
     setLoading(true)
+    setToast(null)
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
+    const payload = Object.fromEntries(new FormData(form.current).entries())
 
-    emailjs.sendForm(serviceId, templateId, form.current, publicKey)
-      .then(() => {
-        alert('Message envoyé avec succès !')
-        setLoading(false)
-        form.current?.reset()
+    try {
+      const res = await fetch('/api/send-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       })
-      .catch((error) => {
-        alert("Erreur lors de l'envoi : " + error.text)
-        setLoading(false)
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || "Erreur lors de l'envoi.")
+      }
+
+      setToast({ type: 'success', message: 'Votre message a bien été envoyé.' })
+      form.current?.reset()
+    } catch (error) {
+      setToast({
+        type: 'error',
+        message: error instanceof Error ? error.message : "Erreur lors de l'envoi.",
       })
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <section id="contact" className="py-24 bg-white border-t border-gray-100">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="min-h-screen flex flex-col justify-center py-24 bg-white border-t border-gray-100">
+      <div className="max-w-7xl mx-auto px-6 w-full">
 
         {/* Contact Info + Map */}
         <div className="grid md:grid-cols-2 gap-16 mb-20">
@@ -47,8 +67,8 @@ export default function Contact() {
                 <li className="text-[#FFCC00] font-bold text-[10px] uppercase tracking-widest mb-2">Email Address</li>
                 <li className="flex items-center gap-3">
                   <FaEnvelope className="text-[#F5A623]" />
-                  <a href="mailto:contact@emtp-construction.com" className="text-[#0B2545] text-sm">
-                    contact@emtp-construction.com
+                  <a href="mailto:contact@emtp-btp.com" className="text-[#0B2545] text-sm">
+                    contact@emtp-btp.com
                   </a>
                 </li>
               </ul>
@@ -80,7 +100,7 @@ export default function Contact() {
           </div>
 
           {/* Map */}
-          <div className="h-450px w-full border border-gray-200 shadow-sm overflow-hidden rounded-sm">
+          <div className="h-113 w-full border border-gray-200 shadow-sm overflow-hidden rounded-sm">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.123157806408!2d-3.97459822418579!3d5.398200235214644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfc19300643fb5e1%3A0xfc40783a98cc7331!2sCocody%20Angr%C3%A9%208%C3%A8me%20tranche!5e0!3m2!1sfr!2stn!4v1784752656915!5m2!1sfr!2stn"
               width="100%"
@@ -105,8 +125,9 @@ export default function Contact() {
             <InputField label="Objet *" name="subject" />
 
             <div>
-              <label className="block text-[10px] font-bold text-[#0B2545] uppercase mb-2">Commentaire ou message *</label>
+              <label htmlFor="message" className="block text-[10px] font-bold text-[#0B2545] uppercase mb-2">Commentaire ou message *</label>
               <textarea
+                id="message"
                 name="message"
                 required
                 className="w-full border border-gray-200 p-3 h-32 focus:border-[#F5A623] outline-none transition-all"
@@ -120,6 +141,34 @@ export default function Contact() {
             >
               {loading ? 'Envoi...' : 'Envoyer'}
             </button>
+
+            {toast && (
+              <div
+                className={`max-w-2xl rounded-xl border px-4 py-3 shadow-lg backdrop-blur-sm ${
+                  toast.type === 'success'
+                    ? 'border-green-200 bg-green-50 text-green-800'
+                    : 'border-red-200 bg-red-50 text-red-800'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <div
+                    className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
+                      toast.type === 'success'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-red-100 text-red-700'
+                    }`}
+                  >
+                    {toast.type === 'success' ? '✓' : '!'}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">
+                      {toast.type === 'success' ? 'Succès' : 'Erreur'}
+                    </p>
+                    <p className="mt-1 text-sm">{toast.message}</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </form>
         </div>
       </div>
@@ -130,8 +179,9 @@ export default function Contact() {
 function InputField({ label, name }: { label: string; name: string }) {
   return (
     <div>
-      <label className="block text-[10px] font-bold text-[#0B2545] uppercase mb-2">{label}</label>
+      <label htmlFor={name} className="block text-[10px] font-bold text-[#0B2545] uppercase mb-2">{label}</label>
       <input
+        id={name}
         type="text"
         name={name}
         required

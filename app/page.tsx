@@ -29,7 +29,7 @@ export default function Home() {
         <Projets />
       </section>
 
-      <section id="feedback" className="py-20">
+      <section id="feedback">
         <Feedback />
       </section>
 
